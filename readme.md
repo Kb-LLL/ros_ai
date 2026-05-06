@@ -516,8 +516,17 @@ npm install
 
 <img width="2549" height="1403" alt="image" src="https://github.com/user-attachments/assets/c0c5fe46-ff56-4c2e-a4ce-acf73edd35ef" />
 <img width="2549" height="1403" alt="image" src="https://github.com/user-attachments/assets/a96f29e0-5c9e-4686-ad0b-b1b301444af2" />
-<img width="2549" height="1403" alt="image" src="https://github.com/user-attachments/assets/2d6451e9-3153-493d-8fc0-d7d8c51c2b71" />
-<img width="2549" height="1403" alt="image" src="https://github.com/user-attachments/assets/3cbcc02b-fba8-42c6-bf94-f0e740ae90ed" />
+<img width="1275" height="702" alt="Snipaste_2026-05-06_22-12-14" src="https://github.com/user-attachments/assets/7cabf7d4-0245-4e8b-80b8-0c5a6c7b7103" />
+<img width="1275" height="702" alt="Snipaste_2026-05-06_22-12-28" src="https://github.com/user-attachments/assets/acee4ceb-764a-413e-8526-41876588a4c8" />
+<img width="1275" height="702" alt="Snipaste_2026-05-06_22-13-58" src="https://github.com/user-attachments/assets/2d7236b4-4d02-4073-b9d5-54c8cfbf3798" />
+<img width="1275" height="702" alt="Snipaste_2026-05-06_22-14-07" src="https://github.com/user-attachments/assets/b321dca6-3f14-4b9b-b6c8-0d94c56f19ec" />
+<img width="1275" height="702" alt="Snipaste_2026-05-06_22-14-36" src="https://github.com/user-attachments/assets/dd8ddf0e-8dcf-47a0-9a74-ce4270bcf664" />
+<img width="1275" height="702" alt="Snipaste_2026-05-06_22-15-36" src="https://github.com/user-attachments/assets/cbcd03b8-2a77-48f9-934b-755e5bf7e3cb" />
+<img width="1275" height="702" alt="Snipaste_2026-05-06_22-15-41" src="https://github.com/user-attachments/assets/56f68b42-8f40-477f-9966-15f439baafee" />
+<img width="1275" height="702" alt="Snipaste_2026-05-06_22-15-53" src="https://github.com/user-attachments/assets/799cebce-00c9-4718-b6a2-17cad8626283" />
+<img width="1275" height="702" alt="选着会话文件" src="https://github.com/user-attachments/assets/a115f006-884f-4d89-8d45-943f027382d1" />
+<img width="1275" height="702" alt="在线知识库" src="https://github.com/user-attachments/assets/60003ef2-6986-4c14-8d9b-9bd245c5a06a" />
+
 
 ## ⚠️ 编码规范（重要）
 
