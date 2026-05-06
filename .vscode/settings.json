@@ -1,0 +1,12 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.autobuild.enabled": false,
+    "java.jdt.ls.java.home": "C:\\Users\\ros\\.jdks\\ms-17.0.18",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-17",
+            "path": "C:\\Users\\ros\\.jdks\\ms-17.0.18",
+            "default": true
+        }
+    ]
+}
