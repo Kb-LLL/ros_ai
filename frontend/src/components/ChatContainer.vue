@@ -254,8 +254,6 @@
           </div>
 
           <div class="flex items-end gap-2">
-            <textarea>...</textarea>
-            <button>...</button>
           </div>
         </div>
       </footer>

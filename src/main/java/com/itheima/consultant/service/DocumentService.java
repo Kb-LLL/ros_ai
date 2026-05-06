@@ -7,21 +7,23 @@ import dev.langchain4j.community.store.embedding.redis.RedisEmbeddingStore;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.DocumentSplitter;
 import dev.langchain4j.data.document.Metadata;
+import dev.langchain4j.data.document.parser.apache.tika.ApacheTikaDocumentParser;
 import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Service
 public class DocumentService {
+
+    private final ApacheTikaDocumentParser tikaDocumentParser = new ApacheTikaDocumentParser();
 
     @Autowired
     private UserDocumentMapper documentMapper;
@@ -89,13 +91,12 @@ public class DocumentService {
     /** 提取文本（支持 PDF / TXT，可按需扩展） */
     private String extractText(MultipartFile file, String ext) throws IOException {
         return switch (ext) {
-            case "pdf" -> {
-                try (PDDocument pdf = PDDocument.load(file.getInputStream())) {
-                    yield new PDFTextStripper().getText(pdf);
+            case "pdf", "doc", "docx", "txt", "md", "xls", "xlsx" -> {
+                try (InputStream inputStream = file.getInputStream()) {
+                    yield tikaDocumentParser.parse(inputStream).text();
                 }
             }
-            case "txt", "md" -> new String(file.getBytes());
-            default -> throw new RuntimeException("暂不支持 ." + ext + " 格式，请上传 PDF/TXT/MD");
+            default -> throw new RuntimeException("暂不支持 ." + ext + " 格式，请上传 PDF、Word、Excel、TXT 或 MD");
         };
     }
 }

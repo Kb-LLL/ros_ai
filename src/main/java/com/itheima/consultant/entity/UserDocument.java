@@ -10,6 +10,8 @@ public class UserDocument {
     private String fileName;
     private String fileType;
     private Long fileSize;
+    private String objectKey;
+    private String storageType;
     private Integer status;
     private LocalDateTime createTime;
 }

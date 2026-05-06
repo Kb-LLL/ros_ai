@@ -1,8 +1,10 @@
 package com.itheima.consultant.controller;
 
 import com.itheima.consultant.common.Result;
+import com.itheima.consultant.dto.ConversationDocumentSelectionRequest;
 import com.itheima.consultant.entity.Conversation;
 import com.itheima.consultant.entity.Message;
+import com.itheima.consultant.entity.UserDocument;
 import com.itheima.consultant.service.ConversationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +48,18 @@ public class ConversationController {
         return Result.success();
     }
 
+    @GetMapping("/{id}/documents")
+    public Result<List<UserDocument>> listBoundDocuments(@PathVariable Long id) {
+        return Result.success(conversationService.listBoundDocuments(id));
+    }
+
+    @PutMapping("/{id}/documents")
+    public Result<?> bindDocuments(@PathVariable Long id,
+                                   @RequestBody ConversationDocumentSelectionRequest request) {
+        conversationService.bindDocuments(id, request.getDocumentIds());
+        return Result.success();
+    }
+
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id) {
         conversationService.delete(id);
@@ -54,7 +68,7 @@ public class ConversationController {
 
     @DeleteMapping("/{id}/last-ai-message")
     public Result<?> deleteLastAiMessage(@PathVariable Long id) {
-        conversationService.deleteLastAiMessage(id.toString());
+        conversationService.deleteLastAiMessage(id);
         return Result.success();
     }
 }

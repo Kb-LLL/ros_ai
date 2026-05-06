@@ -1,23 +1,30 @@
 package com.itheima.consultant.controller;
 
-import com.itheima.consultant.aiservice.ConsultantService;
-import dev.langchain4j.model.openai.OpenAiChatModel;
+import com.itheima.consultant.dto.ChatStreamRequest;
+import com.itheima.consultant.service.RagChatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 public class ChatController {
     @Autowired
-    private ConsultantService consultantService;
+    private RagChatService ragChatService;
 //    @RequestMapping(value = "/chat"/* ,produces = "text/html;charset=utf-8" */)
-    @RequestMapping(value = "/chat")
-    public Flux<String> chat(String memoryId,String message){
-        Flux<String> result = consultantService.chat(memoryId,message);
-        return result;
+    @GetMapping(value = "/chat", produces = MediaType.TEXT_PLAIN_VALUE)
+    public Flux<String> chat(@RequestParam("memoryId") Long memoryId,
+                             @RequestParam("message") String message) {
+        return ragChatService.chat(memoryId, message);
+    }
+
+    @PostMapping(value = "/chat/stream", produces = MediaType.TEXT_PLAIN_VALUE)
+    public Flux<String> chatStream(@RequestBody ChatStreamRequest request) {
+        return ragChatService.chat(request.getMemoryId(), request.getMessage(), request.getImageKeys());
     }
 
     /*@RequestMapping("/chat")

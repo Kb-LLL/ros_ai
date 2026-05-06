@@ -30,7 +30,7 @@
           @click="$refs.fileInput.click()"
       >
         <input ref="fileInput" type="file"
-               accept=".pdf,.txt,.md"
+               accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.md"
                multiple class="hidden"
                @change="handleFileSelect" />
 
@@ -52,7 +52,7 @@
               点击上传或拖拽文件到这里
             </p>
             <p class="text-sm mt-1" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
-              支持 PDF、TXT、MD，单文件最大 20MB
+              支持 PDF、Word、Excel、TXT、MD，单文件最大 20MB
             </p>
           </div>
         </div>
@@ -163,29 +163,27 @@ export default {
       uploading.value = true
       uploadProgress.value = 0
 
-      // 模拟进度
-      const timer = setInterval(() => {
-        if (uploadProgress.value < 85) uploadProgress.value += 5
-      }, 200)
-
       try {
         const formData = new FormData()
         formData.append('file', file)
         const res = await request.post('/document/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
+          headers: { 'Content-Type': 'multipart/form-data' },
+          timeout: 300000,
+          onUploadProgress: (event) => {
+            if (!event.total) return
+            uploadProgress.value = Math.min(95, Math.round((event.loaded / event.total) * 100))
+          }
         })
-        clearInterval(timer)
         uploadProgress.value = 100
         if (res.code === 200) {
-          successMsg.value = `「${file.name}」上传成功，AI 已可基于此文档回答问题！`
+          successMsg.value = `「${file.name}」上传成功，回到聊天页就可以基于它直接提问分析了！`
           await loadDocuments()
           setTimeout(() => { successMsg.value = '' }, 4000)
         } else {
           errorMsg.value = res.message || '上传失败'
         }
       } catch (e) {
-        clearInterval(timer)
-        errorMsg.value = '上传失败，请检查文件格式'
+        errorMsg.value = e?.response?.data?.message || e?.message || '上传失败，请检查文件格式'
       } finally {
         uploading.value = false
         uploadProgress.value = 0
@@ -216,17 +214,21 @@ export default {
 
     const fileIcon = (type) => ({
       pdf:  'fas fa-file-pdf',
+      doc:  'fas fa-file-word',
       txt:  'fas fa-file-alt',
       md:   'fab fa-markdown',
       docx: 'fas fa-file-word',
+      xls:  'fas fa-file-excel',
       xlsx: 'fas fa-file-excel',
     }[type] || 'fas fa-file')
 
     const fileIconBg = (type) => ({
       pdf:  'bg-red-500',
+      doc:  'bg-blue-500',
       txt:  'bg-gray-500',
       md:   'bg-purple-500',
       docx: 'bg-blue-500',
+      xls:  'bg-green-500',
       xlsx: 'bg-green-500',
     }[type] || 'bg-gray-400')
 

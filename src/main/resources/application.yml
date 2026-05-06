@@ -15,7 +15,7 @@ langchain4j:
     embedding-model:
       base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
       api-key: ${API-KEY}
-      model-name: text-embedding-v3
+      model-name: text-embedding-v4
       log-requests: true
       log-responses: true
       max-segments-per-batch: 10
@@ -24,6 +24,13 @@ langchain4j:
     redis:
       host: localhost
       port: 6379
+      index-name: consultant-doc-index-v2
+      prefix: "consultant-doc-v2:"
+      metadata-keys:
+        - userId
+        - documentId
+        - fileName
+        - fileType
 logging:
   level:
     dev.langchain4j: debug
@@ -37,6 +44,10 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 20MB
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -56,3 +67,12 @@ sa-token:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+
+app:
+  ai:
+    vision-model: qwen-vl-plus
+  minio:
+    endpoint: http://127.0.0.1:9000
+    access-key: minioadmin
+    secret-key: minioadmin
+    bucket-name: ros123

@@ -2,7 +2,7 @@ package com.itheima.consultant.controller;
 
 import com.itheima.consultant.common.Result;
 import com.itheima.consultant.entity.UserDocument;
-import com.itheima.consultant.service.DocumentService;
+import com.itheima.consultant.service.DocumentPipelineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +14,7 @@ import java.util.List;
 public class DocumentController {
 
     @Autowired
-    private DocumentService documentService;
+    private DocumentPipelineService documentPipelineService;
 
     /** 上传文件 */
     @PostMapping("/upload")
@@ -22,7 +22,7 @@ public class DocumentController {
         if (file.isEmpty()) return Result.error("文件不能为空");
         if (file.getSize() > 20 * 1024 * 1024) return Result.error("文件大小不能超过20MB");
         try {
-            return Result.success(documentService.uploadDocument(file));
+            return Result.success(documentPipelineService.uploadDocument(file));
         } catch (Exception e) {
             return Result.error(e.getMessage());
         }
@@ -31,13 +31,13 @@ public class DocumentController {
     /** 文件列表 */
     @GetMapping("/list")
     public Result<List<UserDocument>> list() {
-        return Result.success(documentService.listDocuments());
+        return Result.success(documentPipelineService.listDocuments());
     }
 
     /** 删除文件 */
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id) {
-        documentService.deleteDocument(id);
+        documentPipelineService.deleteDocument(id);
         return Result.success();
     }
 }

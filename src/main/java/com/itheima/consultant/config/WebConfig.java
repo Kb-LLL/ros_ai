@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 只保护 /chat 接口，/auth/** 全部放行
         registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
-                .addPathPatterns("/chat", "/conversation/**", "/document/**")
+                .addPathPatterns("/chat", "/chat/**", "/conversation/**", "/document/**", "/asset/**")
                 .excludePathPatterns("/auth/**", "/", "/assets/**", "/favicon.ico");
     }
 
